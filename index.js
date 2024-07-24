@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 //Making connection to mongo
 const connectToMongo = require('./db');
 
@@ -9,7 +11,7 @@ connectToMongo();
 //cors are used to hit the Apis from the frontend
 var cors = require("cors")
 const express = require('express')
-const port = 3003
+const port = process.env.PORT || 3003
 const { app , server } = require('./MiddleWares/Socket')
 
 
