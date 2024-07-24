@@ -1,7 +1,7 @@
 // models/otpModel.js
 const mongoose = require('mongoose')
 const { Schema } = mongoose
-const mailSender = require('../utils/mailSender')
+const mailSender = require('../Utils/mailSender')
 
 const otpSchema = Schema({
   email: {
