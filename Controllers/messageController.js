@@ -220,8 +220,8 @@ exports.uploadImage = async (req , res) => {
             const existingReceiver = user.receivers.find(receiver => receiver.receiverId.toString() === receiverId);
             if (existingReceiver) {
                 const message = existingReceiver.messages.find(message => message._id.toString() === messageId);
-                if(lender === 'true')  message.lenderReciept = req.file.filename
-                else message.borrowerReciept = req.file.filename
+                if(lender === 'true')  message.lenderReciept = image
+                else message.borrowerReciept = image
                 await user.save()
             }
         }

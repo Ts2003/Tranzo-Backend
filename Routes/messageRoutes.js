@@ -20,7 +20,7 @@ router.get('/fetchMessages/:id', authenticateUser, messageController.fetchMessag
 router.post('/changeStatus', authenticateUser, messageController.changeStatus)
 router.post('/sendPayment', authenticateUser, messageController.sendPayment)
 router.post('/returnPayment', authenticateUser, messageController.returnPayment)
-router.post('/uploadImage', authenticateUser , upload.single("image") , messageController.uploadImage)
+router.post('/uploadImage', authenticateUser , messageController.uploadImage)
 
 //exporting router
 module.exports = router
