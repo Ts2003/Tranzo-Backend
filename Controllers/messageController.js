@@ -229,7 +229,7 @@ exports.uploadImage = async (req , res) => {
         //console.log(req.body)
 
         success = true
-        res.status(200).json({success , imageName: req.file.filename , message: "Image Uploaded"})
+        res.status(200).json({success , imageName: image , message: "Image Uploaded"})
     } catch (error) {
         console.error(error)
         res.status(500).json({success , error: "Error"})
