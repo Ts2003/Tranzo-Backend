@@ -38,7 +38,7 @@ io.on("connection", (socket) => {
   //friend
   socket.on("action" , async (item , action1 , user) => {
     const friendSocketId = userSocketMap.get(item._id)
-    console.log("Friend Socket id is " + friendSocketId)
+    //console.log("Friend Socket id is " + friendSocketId)
     const m = (action1 === 'send') ? `${user.name} has sent you a connection request` : `${user.name} has accepted your connection request`
     const notifi = { name: user.name , message: m , date: Date.now() , new: true }
     if(action1 === 'send' || action1 === 'accept')  io.to(friendSocketId).emit('notify' , notifi)
@@ -50,7 +50,7 @@ io.on("connection", (socket) => {
   //friend
   socket.on('message' , (item , message , user) => {
     const friendSocketId = userSocketMap.get(item._id)
-    console.log("Friend Socket id is " + friendSocketId)
+    //console.log("Friend Socket id is " + friendSocketId)
     const m = `${user.name} has lended you an amount of ${message.amount}. Kindly Check`
     const notifi = { name: user.name , message: m , date: Date.now() , new: true }
     io.to(friendSocketId).emit('notify' , notifi)
@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
   //friend
   socket.on('changed' , (item , friend , m , user) => {
     const friendSocketId = userSocketMap.get(friend._id)
-    console.log("Friend Socket id is " + friendSocketId)
+    //console.log("Friend Socket id is " + friendSocketId)
     const notifi = { name: user.name , message: m , date: Date.now() , new: true }
     io.to(friendSocketId).emit('notify' , notifi)
     io.to([friendSocketId , socket.id]).emit("changedItem" , item)
@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
   //friend
   socket.on('verify' , (item , friend , user , message) => {
     const friendSocketId = userSocketMap.get(friend._id)
-    console.log("Friend Socket id is " + friendSocketId)
+    //console.log("Friend Socket id is " + friendSocketId)
     const m = `${user.name} returned an amount of ${message.amount} with a reciept`
     const notifi = { name: user.name , message: m , date: Date.now() , new: true }
     io.to(friendSocketId).emit('notify' , notifi)
@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
   //friend
   socket.on('settle' , (item , friend , user , message) => {
     const friendSocketId = userSocketMap.get(friend._id)
-    console.log("Friend Socket id is " + friendSocketId)
+    //console.log("Friend Socket id is " + friendSocketId)
     const m = `${user.name} settled an amount of ${message.amount}`
     const notifi = { name: user.name , message: m , date: Date.now() , new: true }
     io.to(friendSocketId).emit('notify' , notifi)
@@ -97,8 +97,8 @@ io.on("connection", (socket) => {
   //user profile
   socket.on('image' , async (data , friend) => {
     const friendSocketId = userSocketMap.get(friend._id)
-    console.log("Friend Socket id is " + friendSocketId)
-    console.log(data)
+    //console.log("Friend Socket id is " + friendSocketId)
+    //console.log(data)
     io.to([friendSocketId , socket.id]).emit("image" , data)
   })
 
@@ -114,15 +114,15 @@ io.on("connection", (socket) => {
   //group
   socket.on('groupMessage' , (room , message , event , group) => {
     const m = `You have some new messages in the event ${event.name}. Check out now`
-    console.log(event.members)
+    //console.log(event.members)
     for(const member of event.members) {
       const friendSocketId = userSocketMap.get(member.id)
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       const notifi = { name: group.name , message: m , date: Date.now() , new: true }
       if(friendSocketId !== socket.id) io.to(friendSocketId).emit('notify' , notifi)
       io.to(friendSocketId).emit('groupMessage' , message , room)
     }
-    console.log('///////////////////////////////////')
+    //console.log('///////////////////////////////////')
   })
 
 
@@ -131,7 +131,7 @@ io.on("connection", (socket) => {
   socket.on('members' , (members) => {
     for(const member of members) {
       const friendSocketId = userSocketMap.get(member.id)
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       io.to(friendSocketId).emit('members' , members)
     }
   })
@@ -142,7 +142,7 @@ io.on("connection", (socket) => {
     const m = `${event.name} is settled by admin`
     for(const member of event.members) {
       const friendSocketId = userSocketMap.get(member.id)
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       const notifi = { name: group.name , message: m , date: Date.now() , new: true }
       if(friendSocketId !== socket.id) io.to(friendSocketId).emit('notify' , notifi)
       io.to(friendSocketId).emit('settled' , room)
@@ -155,7 +155,7 @@ io.on("connection", (socket) => {
     const m = `You are added to the group ${group.name} by the admin`
     for(const member of members) {
       const friendSocketId = userSocketMap.get(member._id)
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       const notifi = { name: group.name , message: m , date: Date.now() , new: true }
       if(friendSocketId !== socket.id) io.to(friendSocketId).emit('notify' , notifi)
       io.to(friendSocketId).emit('added')
@@ -170,7 +170,7 @@ io.on("connection", (socket) => {
     const m = `A new event ${event.name} is created in the group ${group.name}`
     for(const member of group.members) {
       const friendSocketId = userSocketMap.get(member.id.toString())
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       const notifi = { name: group.name , message: m , date: Date.now() , new: true }
       if(friendSocketId !== socket.id) io.to(friendSocketId).emit('notify' , notifi)
       io.to(friendSocketId).emit('created')
@@ -183,7 +183,7 @@ io.on("connection", (socket) => {
     const room = group.id + event._id
     for(const member of event.members) {
       const friendSocketId = userSocketMap.get(member.id)
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       io.to(friendSocketId).emit('groupCancelled' , room , messageId)
     }
   })
@@ -193,7 +193,7 @@ io.on("connection", (socket) => {
   socket.on('groupReload' , async (group , friendId) => {
     for(const member of group.members) {
       const friendSocketId = userSocketMap.get(member.id.toString())
-      console.log("Friend Socket id is " + friendSocketId)
+      //console.log("Friend Socket id is " + friendSocketId)
       io.to(friendSocketId).emit('groupReload' , group._id)
     }
     const m = `You are removed from the group ${group.name} by the admin`

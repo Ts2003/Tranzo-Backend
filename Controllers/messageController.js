@@ -110,7 +110,7 @@ exports.changeStatus = async (req , res) => {
         const { item } = req.body
 
         let user = await Message.findOne({ senderId: item.senderId})
-        console.log(item)
+        //console.log(item)
         if(user){
             const existingReceiver = user.receivers.find(receiver => receiver.receiverId.toString() === item.receiverId);
             if (existingReceiver) {
@@ -214,7 +214,7 @@ exports.uploadImage = async (req , res) => {
         if(image === 'null'){
             return res.status(400).json({success , error: "Fields with * are required"})
         }
-        console.log(image)
+        //console.log(image)
         let user = await Message.findOne({ senderId: senderId})
         if(user){
             const existingReceiver = user.receivers.find(receiver => receiver.receiverId.toString() === receiverId);
@@ -226,7 +226,7 @@ exports.uploadImage = async (req , res) => {
             }
         }
 
-        console.log(req.body)
+        //console.log(req.body)
 
         success = true
         res.status(200).json({success , imageName: req.file.filename , message: "Image Uploaded"})

@@ -13,7 +13,7 @@ exports.fetchTransactions = async (req , res) => {
             type: { $in: filters },
             mode: { $in: filters }
         }).sort({ "date": -1 })
-        console.log(transactions)
+        //console.log(transactions)
         success = true;
         res.status(200).json({success , transactions})
     }

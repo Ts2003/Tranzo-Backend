@@ -552,7 +552,7 @@ exports.settleEvent = async (req, res) => {
                 event.transactions = transactions
                 event.status = 'settled'
 
-                console.log(transactions);
+                //console.log(transactions);
             }
             await group.save()
         }
@@ -694,7 +694,7 @@ exports.uploadGroupPic = async (req , res) => {
         }
 
         let group = await Group.findById(groupId)
-        console.log(group)
+        //console.log(group)
         if(group){
             group.profile_image = req.file.filename
             await group.save()

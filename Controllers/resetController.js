@@ -35,7 +35,7 @@ exports.forgotPass = async (req, res) => {
           `<h1>Please click on the link below to change your password. If its not you, then ignore</h1>
            <p>${resetUrl}</p>`
         );
-        console.log("Email sent successfully: ", mailResponse.response);
+        //console.log("Email sent successfully: ", mailResponse.response);
         success = true
         res.status(200).json({success , resetToken , message: 'Password reset token sent' });
   

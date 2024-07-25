@@ -197,7 +197,7 @@ exports.uploadProfilePic = async (req , res) => {
             await user.save()
         }
 
-        console.log(req.body)
+        //console.log(req.body)
 
         success = true
         res.status(200).json({success , imageName: req.file.filename , message: "Image Uploaded"})
@@ -227,7 +227,7 @@ exports.editProfile = async (req , res) => {
             return res.status(400).json({ success, error: "Name must start with an alphabet character" });
         }
 
-        console.log(name)
+        //console.log(name)
         let user = await User.findOne({ _id: req.user.id });
         user.name = name
         await user.save()
