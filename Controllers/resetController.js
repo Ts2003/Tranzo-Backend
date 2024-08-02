@@ -27,17 +27,17 @@ exports.forgotPass = async (req, res) => {
         const resetToken = crypto.randomBytes(20).toString('hex');
         user.resetToken = resetToken;
         user.resetTokenExpiration = Date.now() + 3600000; // Token expires in 1 hour
-        const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/reset-window/${resetToken}`;
         await user.save();
-        const mailResponse = await mailSender(
+
+        const resetUrl = `https://tranzo-backend-1.onrender.com/api/auth/reset-window/${resetToken}`;
+        await mailSender(
           email,
           "Password Reset Link",
           `<h1>Please click on the link below to change your password. If its not you, then ignore</h1>
            <p>${resetUrl}</p>`
         );
-        //console.log("Email sent successfully: ", mailResponse.response);
         success = true
-        res.status(200).json({success , resetToken , message: 'Password reset token sent' });
+        res.status(200).json({success , message: 'Password reset token sent' });
   
     } catch (error) {
         console.log(error.message);
@@ -101,7 +101,7 @@ exports.showResetWindow = async(req , res) => {
     let success = false
     try{
         const token = req.params.token
-        res.redirect(`http://localhost:3001/resetWindow/${token}`)
+        res.redirect(`https://celebrated-puppy-e36281.netlify.app/resetWindow/${token}`)
     }
     catch(error){
         console.error(error)
